@@ -1,7 +1,8 @@
+/*
+ *Given a string,
+ *find out if its characters can be rearranged to form a palindrome.
+ */
 function palindromeRearranging(inputString) {
-  function isPalindrome(str) {
-    return [...str].reverse().join("") === inputString;
-  }
   /*
   todo 1.find all permutations (rearrangements)
   todo 2.check permutation sequence for palindrome
@@ -9,30 +10,18 @@ function palindromeRearranging(inputString) {
   */
 
   //* function for finding all permutations.
-  function getPermutations(str) {
-    let permutations = [];
-    //! build up one word at a time.
-    let word = [];
-    const full = str.length;
-
-    function permute(s) {
-      for (let i = 0; i < s.length; i++) {
-        let char = s[i];
-        word.push(char);
-        if (word.length === full) {
-          permutations.push(word.join(""));
-        } else {
-          permute(s.lice(0, i) + s.slice(i + 1));
-        }
-      }
+  const stringCounts = [...inputString].reduce((acc, curr) => {
+    if (acc[curr] === undefined) {
+      acc[curr] = 1;
+    } else {
+      acc[curr] += 1;
     }
-    permute(str);
-    return permutations;
-  }
-  let perms = getPermutations(inputString);
-  for (let perm of perms) {
-    if (isPalindrome(perm)) return true;
-  }
+    return acc;
+  }, {});
+  let count = Object.keys(stringCounts).filter((x, i) => {
+    return stringCounts[x] % 2 === 1;
+  }).length;
 
-  return false;
+  return count < 2 ? true : false;
 }
+console.log(palindromeRearranging("aabbccc")); // true -- can be rearranged to form 'abba'
