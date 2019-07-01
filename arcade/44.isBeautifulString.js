@@ -4,24 +4,24 @@ ie: b occurs no more times than a; c occurs no more times than b; etc.
 Given a string, check whether it is beautiful. */
 
 function isBeautifulString(inputString) {
-  const count = [...inputString].reduce((acc, curr) => {
-    if (acc[curr] === undefined) {
-      acc[curr] = 1;
-    } else {
-      acc[curr] += 1;
+  const letters = [...inputString];
+  function count(char) {
+    let occurrences = 0;
+    for (let letter of inputString) {
+      if (letter === char) occurrences++;
     }
-    return acc;
-  }, {});
-  const entries = Object.keys(count).map((key, i) => {
-    return count[key];
-  });
+    return occurrences;
+  }
 
-  for (let i = 1; i < entries.length; i++) {
-    if (entries[i] > entries[i - 1]) {
+  let limit = 1e9;
+  for (let char of "abcdefghijklmnopqrstuvwxyz") {
+    let charCount = count(char);
+    console.log(charCount > limit);
+    if (charCount > limit) {
       return false;
     }
+    limit = charCount;
   }
-  return true;
 }
 
-console.log(isBeautifulString("bbc"));
+console.log(isBeautifulString("aabbb")); //false
