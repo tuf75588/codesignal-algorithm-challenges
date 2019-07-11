@@ -8,9 +8,57 @@ You have s cents on your account before the call. What is the duration of the lo
 
 function phoneCall(min1, min2_10, min11, s) {
   //! find the longest duration phone call you can have.
+  let mins = 0;
+  if (s >= min1) mins = 1;
+  if (s >= min1 + 9 * min2_10) {
+    //we can talk for at least 10 minutes.
+    mins = Math.floor((s - min1 - 9 * min2_10) / min11) + 10;
+  } else {
+    mins = Math.floor((s - min1) / min2_10) + 1;
+  }
 
-  let start = 0;
-  let minuteOne = s - min1;
+  return mins;
+
+  //! way overkill linked-list solution below.
+  /*   function Node(value) {
+    this.value = value;
+    this.next = null;
+  }
+  function FishHook(a, b, c) {
+    //! a b and c will represent min1,min2_10,min11
+    this.head = null;
+
+    let prevNode = new Node(a);
+    this.head = prevNode;
+    //filling in the values of 2-10
+    for (let i = 1; i < 10; i++) {
+      const node = new Node(b);
+      prevNode.next = node;
+      prevNode = node;
+    }
+    const lastNode = new Node(c);
+    prevNode.next = lastNode;
+    lastNode.next = lastNode;
+    this.appraise = function(value) {
+      let node = this.head;
+      for (let howMany = 0; ; howMany++) {
+        if (value < node.value) return howMany;
+        value -= node.value;
+        node = node.next;
+      }
+    };
+  }
+  let hook = new FishHook(min1, min2_10, min11);
+  return hook.appraise(s); */
 }
 
-console.log(phoneCall(3, 1, 2, 20));
+console.log(phoneCall(10, 1, 2, 22));
+//! 10c for min1
+//! 1c for min2_10
+//! 2c for min11+
+
+//! after 1 minute we are left with 12c.
+//! after another 9 minutes we are left with 3c
+//! with 3 cents left, we can afford one final minute before a balance less than the minimum price.
+
+//2345678910
