@@ -3,6 +3,7 @@ Then return the result as a decimal number. */
 
 function swapAdjacentBits(n) {
   //! start with converting to binary, then running replace function.
+  console.log(n.toString(2).length)
   return parseInt(
     ("0".repeat(32 - n.toString(2).length) + n.toString(2)).replace(
       /[01]{2}/g,

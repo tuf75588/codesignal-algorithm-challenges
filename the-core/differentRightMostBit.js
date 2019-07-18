@@ -6,10 +6,7 @@ counting from right to left.
 Return the value of 2position_of_the_found_bit (0-based). */
 
 function differentRightmostBit(n, m) {
-  let binOne = [...n.toString(2)].reverse();
-  let binTwo = [...m.toString(2)].reverse();
-  binOne;
-  binTwo;
-  return Math.pow(2, binOne.findIndex((x, i) => binTwo[i] !== x));
+  //! solving using bitwise operators.
+  return (m - n) & (n - m);
 }
-console.log(differentRightmostBit(11, 13));
+console.log(differentRightmostBit(11, 13)); // 2
