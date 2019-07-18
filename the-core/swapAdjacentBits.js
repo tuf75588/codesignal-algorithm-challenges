@@ -2,6 +2,13 @@
 Then return the result as a decimal number. */
 
 function swapAdjacentBits(n) {
-  return parseInt(n.toString(2) + n.toString(2));
+  //! start with converting to binary, then running replace function.
+  return parseInt(
+    ("0".repeat(32 - n.toString(2).length) + n.toString(2)).replace(
+      /[01]{2}/g,
+      (pair) => pair[1] + pair[0]
+    ),
+    2
+  );
 }
-console.log(swapAdjacentBits(1));
+console.log(swapAdjacentBits(74));
